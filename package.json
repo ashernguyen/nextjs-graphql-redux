@@ -1,0 +1,190 @@
+{
+  "name": "akqa-coding-test",
+  "author": "Asher Nguyen <phucnguyenhoang1985@gmail.com>",
+  "scripts": {
+    "dev": "nodemon server/index.ts",
+    "clean:build": "rimraf .next",
+    "prebuild": "yarn lint:ts && yarn lint:style && yarn clean:build",
+    "client:build": "next build",
+    "server:build": "tsc -p server/tsconfig.json --skipLibCheck",
+    "build": "yarn prebuild && yarn client:build && yarn server:build",
+    "start": "NODE_ENV=production node .next/nodeServer/index.js",
+    "deploy": "yarn prebuild && now --target production",
+    "storybook": "start-storybook -p 5000",
+    "storybook:build": "build-storybook -c .storybook -o .out",
+    "lint:ts": "eslint '**/*.ts?(x)'",
+    "lint:ts:fix": "eslint --fix '**/*.ts?(x)'",
+    "lint:style": "stylelint '**/*.ts?(x)'",
+    "lint:style:fix": "stylelint '**/*.ts?(x)' --fix",
+    "test": "jest",
+    "test:dev": "jest --watch --coverage -u"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint",
+      "stylelint",
+      "git add"
+    ]
+  },
+  "jest": {
+    "resetMocks": true,
+    "resetModules": true,
+    "verbose": true,
+    "browser": true,
+    "collectCoverage": true,
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tests/tsconfig.json"
+      }
+    },
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest",
+      "^.+\\.(js|jsx)$": "babel-jest"
+    },
+    "setupFilesAfterEnv": [
+      "jest-styled-components",
+      "<rootDir>/tests/helpers/setup.ts"
+    ],
+    "clearMocks": true,
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text",
+      "clover",
+      "html",
+      "lcov"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 50,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "moduleNameMapper": {
+      "^pages(.*)$": "<rootDir>/pages$1",
+      "^@client(.*)$": "<rootDir>/client$1",
+      "^tests(.*)$": "<rootDir>/tests$1"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "notify": true,
+    "notifyMode": "always",
+    "roots": [
+      "<rootDir>"
+    ],
+    "testMatch": [
+      "<rootDir>/tests/**/*.test.(ts|tsx)"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
+  "dependencies": {
+    "apollo-boost": "^0.4.3",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "graphql": "^14.4.2",
+    "graphql-tag": "^2.10.1",
+    "isomorphic-fetch": "^2.2.1",
+    "next": "^9.0.2",
+    "next-with-apollo": "^3.4.0",
+    "query-string": "^6.8.1",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.8",
+    "react-dom": "^16.8.6",
+    "react-helmet": "^5.2.1",
+    "react-lazyload": "^2.6.2",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^4.3.2",
+    "styled-system": "^5.0.15"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-info": "^5.1.9",
+    "@storybook/addon-knobs": "^5.1.9",
+    "@storybook/addon-options": "^5.1.9",
+    "@storybook/addon-viewport": "^5.1.9",
+    "@storybook/react": "^5.1.9",
+    "@types/compression": "^0.0.36",
+    "@types/enzyme": "^3.10.3",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/express": "^4.17.0",
+    "@types/jest": "^24.0.15",
+    "@types/next": "^8.0.6",
+    "@types/node": "^12.6.6",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-helmet": "^5.0.8",
+    "@types/react-lazyload": "^2.5.0",
+    "@types/react-redux": "^7.1.1",
+    "@types/redux-mock-store": "^1.0.1",
+    "@types/storybook-addon-jsx": "^5.4.3",
+    "@types/storybook__addon-info": "^4.1.2",
+    "@types/storybook__addon-knobs": "^5.0.1",
+    "@types/storybook__addon-viewport": "^4.1.1",
+    "@types/storybook__react": "^4.0.2",
+    "@types/styled-components": "^4.1.18",
+    "@types/styled-system": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/parser": "^1.12.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-jest": "^24.8.0",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "babel-plugin-styled-components": "^1.10.6",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
+    "eslint": "^6.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-import-resolver-typescript": "^1.1.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jest": "^22.11.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-react-hooks": "^1.6.1",
+    "fetch-mock": "^7.3.7",
+    "husky": "^3.0.0",
+    "jest": "^24.8.0",
+    "jest-fetch-mock": "^2.1.2",
+    "jest-styled-components": "^6.3.3",
+    "lint-staged": "^9.2.0",
+    "next-offline": "^4.0.2",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2",
+    "react-docgen": "^4.1.1",
+    "react-docgen-typescript": "^1.12.5",
+    "react-docgen-typescript-loader": "^3.1.0",
+    "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.3",
+    "rimraf": "^2.6.3",
+    "storybook-addon-jsx": "^7.1.2",
+    "stylelint": "^10.1.0",
+    "stylelint-config-idiomatic-order": "^7.0.3",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-recommended": "^2.2.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-order": "^3.0.1",
+    "stylelint-processor-styled-components": "^1.8.0",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "tsconfig-paths": "^3.8.0",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typesafe-actions": "^4.4.2",
+    "typescript": "^3.5.3",
+    "waait": "^1.0.5",
+    "webpack": "^4.36.1"
+  },
+  "license": "MIT"
+}

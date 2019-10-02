@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "declaration": false,
+    "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "esnext",
+    "lib": [
+      "es6",
+      "dom",
+      "es2018.promise"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "downlevelIteration": true,
+    "baseUrl": ".",
+    "paths": {
+      "@client/*": [
+        "client/*"
+      ],
+      "pages/": [
+        "./pages/*"
+      ],
+      "static/": [
+        "./static/*"
+      ],
+      "server/": [
+        "./server/*"
+      ],
+      "tests/": [
+        "./tests/*"
+      ],
+      "@mock/": [
+        "./tests/__mocks__/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compileOnSave": false
+}
